@@ -100,11 +100,11 @@ MODULE2.powermac-xlf       = -I ../$(MOD) -qmoddir=../$(MOD)
 
 # intel fortran compiler release 10.1 ifort (Aug 2008)
 x86_64-linux-ifort:
-FC.x86_64-linux-ifort	     = ifort -static
+FC.x86_64-linux-ifort	     = ifort 
 FC90.x86_64-linux-ifort	     = ifort
-FFLAGS.x86_64-linux-ifort        = -O -axW  -w 
-FFLAGS90.x86_64-linux-ifort        = -O -axW  -w 
-FFLAGS_warn.x86_64-linux-ifort   =  -O -axW -u   -w -posixlib -Vaxlib -CB
+FFLAGS.x86_64-linux-ifort        = -O2 -axW  -w 
+FFLAGS90.x86_64-linux-ifort        = -O2 -axW  -w 
+FFLAGS_warn.x86_64-linux-ifort   =  -O2 -axW -u   -w -posixlib -Vaxlib -CB
 FFLAGS_GAMA_warn.x86_64-linux-ifort = -O -r8 -align -w -axW -posixlib -Vaxlib 
 FFLAGS_GAMA.x86_64-linux-ifort   =   -r8 -align  -axW -w 
 FFLAGS_GAMA.x86_64-linux-ifort   = -O2  -r8 -align  -axW -w  
@@ -116,34 +116,68 @@ RANLIB.x86_64-linux-ifort        = ranlib
 MODULE.x86_64-linux-ifort      = -I$(MOD) -module $(MOD)
 MODULE2.x86_64-linux-ifort       = -I ../$(MOD) -module ../$(MOD)
 
-# GNU fortran compiler gfortran 4.8.4  (Oct 2015)
+# GNU fortran compiler gfortran 11.4.0  (Feb. 2026) suggested for gfortran version > 10.0
 x86_64-linux-gfortran:
-FC.x86_64-linux-gfortran	     = gfortran
+FC.x86_64-linux-gfortran	     = gfortran  
 FC90.x86_64-linux-gfortran	     = gfortran
-FFLAGS.x86_64-linux-gfortran        = -O   
-FFLAGS90.x86_64-linux-gfortran        = -O   
-FFLAGS_warn.x86_64-linux-gfortran   =  -O -u  
-FFLAGS_GAMA_warn.x86_64-linux-gfortran = -O  -fdefault-real-8  -Wall -fbounds-check -fcheck=all
-FFLAGS_GAMA.x86_64-linux-gfortran   =  -O   -fdefault-real-8  -Wall -fbounds-check -fcheck=all
-FFLAGS_GAMA.x86_64-linux-gfortran   = -O2  -fdefault-real-8  -Wall -fbounds-check -fcheck=all
-FFLAGS_oasd.x86_64-linux-gfortran   =  -O0 
-FFLAGS_csvdc.x86_64-linux-gfortran  = -g 
-CFLAGS.x86_64-linux-gfortran        =
-MISCLIB.x86_64-linux-gfortran       = ./obj/${HOSTTYPE}-${FORTRAN}/misc.a
-RANLIB.x86_64-linux-gfortran        = ranlib
-MODULE.x86_64-linux-gfortran      = 
-MODULE2.x86_64-linux-gfortran       = 
+FFLAGS.x86_64-linux-gfortran         = -O -std=legacy -fallow-argument-mismatch
+FFLAGS90.x86_64-linux-gfortran       = -O -std=legacy -fallow-argument-mismatch
+FFLAGS_warn.x86_64-linux-gfortran    = -O -std=legacy -fallow-argument-mismatch
+FFLAGS_GAMA_warn.x86_64-linux-gfortran = -O -fdefault-real-8  -Wall -fbounds-check -fcheck=all -std=legacy -fallow-argument-mismatch
+FFLAGS_GAMA.x86_64-linux-gfortran    = -O2 -fdefault-real-8  -Wall -fbounds-check -fcheck=all -std=legacy -fallow-argument-mismatch
+FFLAGS_oasd.x86_64-linux-gfortran    = -O0 -std=legacy -fallow-argument-mismatch
+FFLAGS_csvdc.x86_64-linux-gfortran   = -g 
+CFLAGS.x86_64-linux-gfortran         =
+MISCLIB.x86_64-linux-gfortran        = ./obj/${HOSTTYPE}-${FORTRAN}/misc.a
+RANLIB.x86_64-linux-gfortran         = ranlib
+MODULE.x86_64-linux-gfortran         = 
+MODULE2.x86_64-linux-gfortran        = 
 
-# GNU fortran compiler gfortran 5.1 on Imac  (Oct 2015)
+# # GNU fortran compiler gfortran 4.8.4  (Oct 2015) suggested for very old gfortran versions
+# x86_64-linux-gfortran:
+# FC.x86_64-linux-gfortran	     = gfortran  
+# FC90.x86_64-linux-gfortran	     = gfortran
+# FFLAGS.x86_64-linux-gfortran        = -O2  -w  
+# FFLAGS90.x86_64-linux-gfortran        = -O2  -w  
+# FFLAGS_warn.x86_64-linux-gfortran   =  -O2 -u   -w 
+# FFLAGS_GAMA_warn.x86_64-linux-gfortran = -O2  -w 
+# FFLAGS_GAMA.x86_64-linux-gfortran   =     -w 
+# FFLAGS_GAMA.x86_64-linux-gfortran   = -O2   -w  
+# FFLAGS_oasd.x86_64-linux-gfortran   =  -O0 
+# FFLAGS_csvdc.x86_64-linux-gfortran  = -g 
+# CFLAGS.x86_64-linux-gfortran        =
+# MISCLIB.x86_64-linux-gfortran       = ./obj/${HOSTTYPE}-${FORTRAN}/misc.a
+# RANLIB.x86_64-linux-gfortran        = ranlib
+# MODULE.x86_64-linux-gfortran      = 
+# MODULE2.x86_64-linux-gfortran       = 
+
+# # GNU fortran compiler gfortran 9.4.0  (Feb. 2026)  suggested for gfortran version < 10.0
+# x86_64-linux-gfortran:
+# FC.x86_64-linux-gfortran	     = gfortran  
+# FC90.x86_64-linux-gfortran	     = gfortran
+# FFLAGS.x86_64-linux-gfortran         = -O -std=legacy -Wno-argument-mismatch
+# FFLAGS90.x86_64-linux-gfortran       = -O -std=legacy -Wno-argument-mismatch
+# FFLAGS_warn.x86_64-linux-gfortran    = -O -std=legacy -Wno-argument-mismatch
+# FFLAGS_GAMA_warn.x86_64-linux-gfortran = -O -fdefault-real-8  -Wall -fbounds-check -fcheck=all -std=legacy -Wno-argument-mismatch
+# FFLAGS_GAMA.x86_64-linux-gfortran    = -O2 -fdefault-real-8  -Wall -fbounds-check -fcheck=all -std=legacy -Wno-argument-mismatch
+# FFLAGS_oasd.x86_64-linux-gfortran    = -O0 -std=legacy -Wno-argument-mismatch
+# FFLAGS_csvdc.x86_64-linux-gfortran   = -g 
+# CFLAGS.x86_64-linux-gfortran         =
+# MISCLIB.x86_64-linux-gfortran        = ./obj/${HOSTTYPE}-${FORTRAN}/misc.a
+# RANLIB.x86_64-linux-gfortran         = ranlib
+# MODULE.x86_64-linux-gfortran         = 
+# MODULE2.x86_64-linux-gfortran        = 
+
+# GNU fortran compiler gfortran 5.2 on Mac OS  (Oct 2015)
 x86_64-gfortran:
 FC.x86_64-gfortran	     = gfortran 
-FC90.x86_64-gfortran	     = gfortran
-FFLAGS.x86_64-gfortran        = -O   
-FFLAGS90.x86_64-gfortran        = -O   
-FFLAGS_warn.x86_64-gfortran   =  -O   
-FFLAGS_GAMA_warn.x86_64-gfortran = -O   -fdefault-real-8  -Wall -fbounds-check -fcheck=all
-FFLAGS_GAMA.x86_64-gfortran   =  -O -fdefault-real-8  -Wall -fbounds-check -fcheck=all
-FFLAGS_GAMA.x86_64-gfortran   = -O2    -fdefault-real-8  -Wall -fbounds-check -fcheck=all
+FC90.x86_64-gfortran	     = gfortran 
+FFLAGS.x86_64-gfortran        = -O2  -w  
+FFLAGS90.x86_64-gfortran        = -O2  -w  
+FFLAGS_warn.x86_64-gfortran   =  -O2   -w 
+FFLAGS_GAMA_warn.x86_64-gfortran = -O2  -w 
+FFLAGS_GAMA.x86_64-gfortran   =     -w 
+FFLAGS_GAMA.x86_64-gfortran   = -O2   -w  
 FFLAGS_oasd.x86_64-gfortran   =  -O0 
 FFLAGS_csvdc.x86_64-gfortran  = -g 
 CFLAGS.x86_64-gfortran        =
